@@ -42,7 +42,7 @@ jobs:
           git config user.email "you@example.com"
           git config user.name "Your Name"
           git am ${{runner.workspace}}\windeploynunchuk\patches\0001-Unload-qt.patch
-          py -3 msvc-autogen.py
+          py -3 msvc-autogen.py -toolset v141
 
       - name: Cache Bitcoin Core
         uses: actions/cache@v2
