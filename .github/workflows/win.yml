@@ -20,7 +20,7 @@ jobs:
         env:
           GITLAB_AT: ${{ secrets.GITLAB_AT }}
         run: |
-          git clone https://bakaoh:$env:GITLAB_AT@gitlab.com/nunchuck/nunchuck-qt nunchuk-qt --depth 1
+          git clone -b online https://bakaoh:$env:GITLAB_AT@gitlab.com/nunchuck/nunchuck-qt nunchuk-qt --depth 1
           cd nunchuk-qt
           git submodule update --init --recursive
 
@@ -76,6 +76,7 @@ jobs:
           Copy-Item -Path "C:\Windows\System32\msvcp*.dll" -Destination ".\nunchuk-windows\app"
           Copy-Item -Path "C:\Windows\System32\vccorlib*.dll" -Destination ".\nunchuk-windows\app"
           Copy-Item -Path "C:\Windows\System32\vcruntime*.dll" -Destination ".\nunchuk-windows\app"
+          Remove-Item –Path "${{runner.workspace}}\nunchuk-qt" –Recurse
           Compress-Archive -Path ".\nunchuk-windows" -DestinationPath ".\nunchuk-windows.zip"
 
       - name: Upload Artifact
