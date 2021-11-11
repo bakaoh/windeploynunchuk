@@ -76,7 +76,7 @@ jobs:
           Copy-Item -Path "C:\Windows\System32\msvcp*.dll" -Destination ".\nunchuk-windows\app"
           Copy-Item -Path "C:\Windows\System32\vccorlib*.dll" -Destination ".\nunchuk-windows\app"
           Copy-Item -Path "C:\Windows\System32\vcruntime*.dll" -Destination ".\nunchuk-windows\app"
-          Remove-Item –Path "${{runner.workspace}}\nunchuk-qt" –Recurse
+          Remove-Item -Path "${{runner.workspace}}\nunchuk-qt" -Recurse
           Compress-Archive -Path ".\nunchuk-windows" -DestinationPath ".\nunchuk-windows.zip"
 
       - name: Upload Artifact
