@@ -79,7 +79,7 @@ jobs:
           Compress-Archive -Path ".\nunchuk-windows" -DestinationPath ".\nunchuk-windows.zip"
 
       - name: Upload Artifact
-        uses: 'actions/upload-artifact@v2'
+        uses: 'actions/upload-artifact@v2.2.4'
         with:
           name: nunchuk-windows
           path: ${{runner.workspace}}/windeploynunchuk/nunchuk-windows/
