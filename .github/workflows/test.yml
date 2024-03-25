@@ -20,7 +20,9 @@ jobs:
         
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v2
-        
+        with:
+            msbuild-architecture: x64
+
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11
         id: runvcpkg
