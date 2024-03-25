@@ -22,7 +22,7 @@ jobs:
         uses: microsoft/setup-msbuild@v2
         with:
             msbuild-architecture: x64
-            vs-version: '[16.4,16.5)'
+            vs-version: '[15.0,16.9)'
 
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11
