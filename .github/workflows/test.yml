@@ -1,4 +1,4 @@
-name: win
+name: win-test
 
 on:
   push:
@@ -21,10 +21,17 @@ jobs:
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v2
         
-      - name: run-vcpkg
-        uses: lukka/run-vcpkg@v11.5
-          
-      - name: Display vcpkg.json
-        run: |
-          find ${{ github.workspace }} -name "vcpkg.json" -print
-          cat ${{ github.workspace }}/vcpkg.json
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        id: runvcpkg
+        with:
+          # This specifies the location of vcpkg, where it is going to be restored from cache, or create from scratch.
+          vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
+          # The Git commit id of vcpkg to be checked out. This is only needed because we are not using a submodule.
+          vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
+          # The vcpkg.json file, which will be part of cache key computation.
+          vcpkgJsonGlob: '**/cmakepresets/vcpkg.json'
+
+      - name: Prints output of run-vcpkg's action
+        run: echo "root='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}', triplet='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_DEFAULT_TRIPLET_OUT }}'"
+
