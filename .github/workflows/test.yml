@@ -1,0 +1,30 @@
+name: win
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+        
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v2
+        
+      - name: run-vcpkg
+        uses: lukka/run-vcpkg@v11.5
+          
+      - name: Display vcpkg.json
+        run: |
+          find ${{ github.workspace }} -name "vcpkg.json" -print
+          cat ${{ github.workspace }}/vcpkg.json
