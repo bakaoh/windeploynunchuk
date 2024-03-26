@@ -31,7 +31,7 @@ jobs:
           vcpkgDirectory: '${{ runner.workspace }}/vcpkg'
           vcpkgTriplet: 'x64-windows'
           vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
-          vcpkgJsonGlob: '**/cmakepresets/vcpkg.json'
+          vcpkgJsonGlob: '**/vcpkg.json'
 
       - name: Prints output of run-vcpkg's action
         run: echo "root='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}', triplet='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_DEFAULT_TRIPLET_OUT }}'"
