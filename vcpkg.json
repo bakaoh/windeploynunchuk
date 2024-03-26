@@ -2,11 +2,14 @@
   "name": "nunchuk-qt",
   "version-string": "0.0.1",
   "dependencies": [
-    "fmt",
-    "boost-config",
-    "zlib",
-    "bzip2",
-    "liblzma",
-    "zstd"
+    "boost",
+    "libevent",
+    "berkeleydb",
+    "sqlite3",
+    "sqlcipher",
+    "zeromq",
+    "qt5",
+    "qt5-graphicaleffects",
+    "qt5-quickcontrols"
   ]
 }
