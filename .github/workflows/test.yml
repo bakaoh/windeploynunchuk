@@ -40,6 +40,20 @@ jobs:
           vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
           vcpkgJsonGlob: '**/vcpkg.json'
 
-      - name: Prints output of run-vcpkg's action
-        run: echo "root='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}', triplet='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_DEFAULT_TRIPLET_OUT }}'"
+      - name: Config Bitcoin Core
+        working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
+        run: |
+          & "$env:VCPKG_ROOT\vcpkg" integrate install
+          git config user.email "you@example.com"
+          git config user.name "Your Name"
+          git am ${{runner.workspace}}\windeploynunchuk\patches\0001-Unload-qt.patch
+          py -3 msvc-autogen.py -toolset v141
 
+      - name: Build Bitcoin Core
+        if: steps.cache-contrib.outputs.cache-hit != 'true'
+        working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
+        shell: cmd
+        run: |
+          set CL=/D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+          msbuild /m bitcoin.sln /p:Platform=x64 /p:Configuration=Release /t:build /m:8 /p:DefineConstants=_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+          del /q ${{runner.workspace}}\nunchuk-qt\contrib\libnunchuk\contrib\bitcoin\build_msvc\x64\Release
