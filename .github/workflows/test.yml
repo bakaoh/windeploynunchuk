@@ -44,7 +44,7 @@ jobs:
           vcpkgJsonGlob: '**/vcpkg.json'
           
       - name: Install dependencies
-        working-directory: ${{runner.workspace}}
+        working-directory: ${{runner.workspace}}/windeploynunchuk
         run: |
           & "$env:VCPKG_ROOT\vcpkg" integrate install
           
