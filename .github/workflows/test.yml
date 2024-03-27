@@ -7,6 +7,9 @@ on:
 
   workflow_dispatch:
 
+env:
+  VCPKG_BINARY_SOURCES: clear
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -21,7 +24,7 @@ jobs:
       - name: Checkout nunchuk-qt
         working-directory: ${{runner.workspace}}
         env:
-          GITLAB_AT: ${{ secrets.GITLAB_AT }}
+          GITLAB_AT: ${{ secrets.GITLAB_AT }} 
         run: |
           git clone -b online https://bakaoh:$env:GITLAB_AT@gitlab.com/nunchuck/nunchuck-qt nunchuk-qt --depth 1
           cd nunchuk-qt
