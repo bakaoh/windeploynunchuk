@@ -40,7 +40,6 @@ jobs:
         id: runvcpkg
         with:
           vcpkgDirectory: '${{ runner.workspace }}/vcpkg'
-          vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
           vcpkgJsonGlob: '**/vcpkg.json'
           
       - name: Install dependencies
