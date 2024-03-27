@@ -1,3 +1,13 @@
+From c4fcaa225e7b0ee18d9073381607878f5f93e9b1 Mon Sep 17 00:00:00 2001
+From: Bakaoh <batatsar@gmail.com>
+Date: Wed, 27 Mar 2024 16:51:07 +0700
+Subject: Upload qt
+
+---
+ build_msvc/bitcoin.sln | 70 ------------------------------------------
+ build_msvc/vcpkg.json  |  7 ++++-
+ 2 files changed, 6 insertions(+), 71 deletions(-)
+
 diff --git a/build_msvc/bitcoin.sln b/build_msvc/bitcoin.sln
 index 7d8591c10b..920a225643 100644
 --- a/build_msvc/bitcoin.sln
@@ -142,3 +152,6 @@ index 42b9a5d16f..85c3f433ee 100644
 +    "qt5-quickcontrols"
    ]
  }
+-- 
+2.24.2 (Apple Git-127)
+
