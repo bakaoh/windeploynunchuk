@@ -42,7 +42,12 @@ jobs:
           vcpkgDirectory: '${{ runner.workspace }}/vcpkg'
           vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
           vcpkgJsonGlob: '**/vcpkg.json'
-
+          
+      - name: Install dependencies
+        working-directory: ${{runner.workspace}}
+        run: |
+          & "$env:VCPKG_ROOT\vcpkg" integrate install
+          
       - name: Config Bitcoin Core
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
         run: |
