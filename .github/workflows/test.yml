@@ -41,7 +41,7 @@ jobs:
         with:
           vcpkgDirectory: '${{ runner.workspace }}/vcpkg'
           vcpkgJsonGlob: '**/vcpkg.json'
-          vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
+          vcpkgGitCommitId: 'a34c873a9717a888f58dc05268dea15592c2f0ff'
 
       - name: Install dependencies
         working-directory: ${{runner.workspace}}/windeploynunchuk
