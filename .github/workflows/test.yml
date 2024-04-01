@@ -46,7 +46,7 @@ jobs:
       - name: Install dependencies
         working-directory: ${{runner.workspace}}/windeploynunchuk
         run: |
-          & "$env:VCPKG_ROOT\vcpkg" install boost-filesystem boost-algorithm boost-process boost-signals2 libevent berkeleydb sqlite3 sqlcipher zeromq qt5 qt5-graphicaleffects qt5-quickcontrols
+          & "$env:VCPKG_ROOT\vcpkg" install
           
       - name: Config Bitcoin Core
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
