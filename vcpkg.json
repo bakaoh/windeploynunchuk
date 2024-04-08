@@ -6,10 +6,6 @@
     "boost-algorithm",
     "boost-process",
     "boost-signals2",
-    {
-      "name": "libevent",
-      "features": ["thread"]
-    },
     "berkeleydb",
     "sqlite3",
     "sqlcipher",
