@@ -17,5 +17,11 @@
     "qt5",
     "qt5-graphicaleffects",
     "qt5-quickcontrols"
+  ],
+  "overrides": [
+    {
+      "name": "tiff",
+      "version": "4.5.1"
+    }
   ]
 }
