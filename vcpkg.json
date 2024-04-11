@@ -18,6 +18,7 @@
     "qt5-graphicaleffects",
     "qt5-quickcontrols"
   ],
+  "builtin-baseline": "8d8cec243e033d751c82fd16be5b2ff95ab28bb1",
   "overrides": [
     {
       "name": "tiff",
