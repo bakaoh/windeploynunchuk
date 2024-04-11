@@ -4,7 +4,7 @@
   "dependencies": [
     {
       "name": "tiff",
-      "version": "4.5.1"
+      "features": ["zip"]
     },
     "sqlcipher"
   ]
