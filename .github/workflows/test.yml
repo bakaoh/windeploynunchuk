@@ -20,15 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-      
-      - name: Checkout nunchuk-qt
-        working-directory: ${{runner.workspace}}
-        env:
-          GITLAB_AT: ${{ secrets.GITLAB_AT }} 
-        run: |
-          git clone -b online https://bakaoh:$env:GITLAB_AT@gitlab.com/nunchuck/nunchuck-qt nunchuk-qt --depth 1
-          cd nunchuk-qt
-          git submodule update --init --recursive
 
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v2
@@ -41,58 +32,10 @@ jobs:
         with:
           vcpkgDirectory: '${{ runner.workspace }}/vcpkg'
           vcpkgJsonGlob: '**/vcpkg.json'
-          vcpkgGitCommitId: '8d8cec243e033d751c82fd16be5b2ff95ab28bb1'
+          vcpkgGitCommitId: 'a194ab0156b30469ce5034ceb8e83c1531f7deba'
 
       - name: Install dependencies
         working-directory: ${{runner.workspace}}/windeploynunchuk
         run: |
           & "$env:VCPKG_ROOT\vcpkg" install
-          
-      - name: Config Bitcoin Core
-        working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
-        run: |
-          & "$env:VCPKG_ROOT\vcpkg" integrate install
-          git config user.email "you@example.com"
-          git config user.name "Your Name"
-          git am ${{runner.workspace}}\windeploynunchuk\patches\0001-Unload-qt.patch
-          py -3 msvc-autogen.py
 
-      - name: Build Bitcoin Core
-        if: steps.cache-contrib.outputs.cache-hit != 'true'
-        working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
-        shell: cmd
-        run: |
-          set CL=/D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-          msbuild /m bitcoin.sln /p:Platform=x64 /p:Configuration=Release /t:build /m:8 /p:DefineConstants=_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-          del /q ${{runner.workspace}}\nunchuk-qt\contrib\libnunchuk\contrib\bitcoin\build_msvc\x64\Release
-
-      - name: Build nunchuk-qt
-        working-directory: ${{runner.workspace}}
-        shell: cmd
-        run: |
-          copy /Y %VCPKG_ROOT%\installed\x64-windows-static\bin\event* %VCPKG_ROOT%\installed\x64-windows-static\lib
-          cmake -E make_directory ${{runner.workspace}}\build
-          cd build
-          cmake ${{runner.workspace}}\nunchuk-qt -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static -DUR__DISABLE_TESTS=ON -DCMAKE_GENERATOR_PLATFORM=x64
-          cmake --build . --config Release -j8
-
-      - name: Create Zip
-        working-directory: ${{runner.workspace}}/windeploynunchuk
-        shell: powershell 
-        run: |
-          curl "https://github.com/bitcoin-core/HWI/releases/download/1.2.1/hwi-1.2.1-windows-amd64.zip" -O hwi.zip
-          Expand-Archive -Force .\hwi.zip .
-          Copy-Item -Path "${{runner.workspace}}\build\Release" -Destination ".\nunchuk-windows\app" -Recurse
-          Copy-Item -Path ".\hwi.exe" -Destination ".\nunchuk-windows\app"
-          Rename-Item -Path ".\nunchuk-windows\app\nunchuck-client-qt.exe" -NewName "nunchuk-client-qt.exe"
-          Copy-Item -Path "$env:VCPKG_ROOT\installed\x64-windows\bin\Qt5*.dll" -Destination ".\nunchuk-windows\app"
-          Copy-Item -Path "C:\Windows\System32\msvcp*.dll" -Destination ".\nunchuk-windows\app"
-          Copy-Item -Path "C:\Windows\System32\vccorlib*.dll" -Destination ".\nunchuk-windows\app"
-          Copy-Item -Path "C:\Windows\System32\vcruntime*.dll" -Destination ".\nunchuk-windows\app"
-          Compress-Archive -Path ".\nunchuk-windows" -DestinationPath ".\nunchuk-windows.zip"
-
-      - name: Upload Artifact
-        uses: 'actions/upload-artifact@v2.2.4'
-        with:
-          name: nunchuk-windows
-          path: ${{runner.workspace}}/windeploynunchuk/nunchuk-windows/
