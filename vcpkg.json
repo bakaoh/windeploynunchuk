@@ -6,16 +6,6 @@
       "name": "tiff",
       "version": "4.5.1"
     },
-    "sqlcipher",
-    "libevent",
-    "boost-filesystem",
-    "boost-algorithm",
-    "boost-process",
-    "boost-signals2",
-    "berkeleydb",
-    "zeromq",
-    "qt5",
-    "qt5-graphicaleffects",
-    "qt5-quickcontrols"
+    "sqlcipher"
   ]
 }
