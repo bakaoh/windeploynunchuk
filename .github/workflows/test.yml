@@ -20,10 +20,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-      
-      - uses: lukka/get-cmake@v3.28.4
 
-      - name: setup-msbuild
+      - name: Checkout nunchuk-qt
+        working-directory: ${{runner.workspace}}
+        env:
+          GITLAB_AT: ${{ secrets.GITLAB_AT }} 
+        run: |
+          git clone -b online https://bakaoh:$env:GITLAB_AT@gitlab.com/nunchuck/nunchuck-qt nunchuk-qt --depth 1
+          cd nunchuk-qt
+          git submodule update --init --recursive
+
+      - name: Setup cmake
+        uses: lukka/get-cmake@v3.28.4
+
+      - name: Setup msbuild
         uses: microsoft/setup-msbuild@v2
         with:
             msbuild-architecture: x64
