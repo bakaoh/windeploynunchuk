@@ -11,7 +11,6 @@
     "berkeleydb",
     "zeromq",
     "qt5",
-    "qt5-config",
     "qt5-graphicaleffects",
     "qt5-quickcontrols"
   ]
