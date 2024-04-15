@@ -42,15 +42,18 @@ jobs:
         uses: lukka/run-vcpkg@v11
         id: runvcpkg
         with:
-          vcpkgDirectory: '${{ runner.workspace }}/vcpkg'
+          vcpkgDirectory: 'D:/a/vcpkg'
           vcpkgJsonGlob: '**/vcpkg.json'
           vcpkgGitCommitId: '8d8cec243e033d751c82fd16be5b2ff95ab28bb1'
 
+      - name: Prints output of run-vcpkg's action.
+        run: echo "root='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}', triplet='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_DEFAULT_TRIPLET_OUT }}' "
+      
       - name: Install dependencies
         working-directory: ${{runner.workspace}}/windeploynunchuk
         run: |
           & "$env:VCPKG_ROOT\vcpkg" install
-          
+
       - name: Config Bitcoin Core
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
         run: |
