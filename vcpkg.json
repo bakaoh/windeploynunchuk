@@ -2,10 +2,16 @@
   "name": "nunchuk-qt",
   "version-string": "0.0.1",
   "dependencies": [
-    {
-      "name": "tiff",
-      "default-features": true
-    },
-    "sqlcipher"
+    "sqlcipher",
+    "libevent",
+    "boost-filesystem",
+    "boost-algorithm",
+    "boost-process",
+    "boost-signals2",
+    "berkeleydb",
+    "zeromq",
+    "qt5",
+    "qt5-graphicaleffects",
+    "qt5-quickcontrols"
   ]
 }
