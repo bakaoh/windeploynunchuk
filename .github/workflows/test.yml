@@ -48,9 +48,15 @@ jobs:
 
       - name: Prints output of run-vcpkg's action.
         run: echo "root='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}', triplet='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_DEFAULT_TRIPLET_OUT }}' "
-      
+
+      - name: Install dependencies 0
+        working-directory: ${{runner.workspace}}
+        shell: cmd
+        run: |
+          copy /Y ${{runner.workspace}}\windeploynunchuk\vcpkg.json %VCPKG_ROOT%
+          
       - name: Install dependencies
-        working-directory: ${{runner.workspace}}/windeploynunchuk
+        working-directory: 'D:/a/vcpkg'
         run: |
           & "$env:VCPKG_ROOT\vcpkg" install
 
