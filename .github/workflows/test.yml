@@ -58,7 +58,7 @@ jobs:
       - name: Install dependencies
         working-directory: 'D:/a/vcpkg'
         run: |
-          & "$env:VCPKG_ROOT\vcpkg" install boost libevent berkeleydb sqlite3 sqlcipher zeromq qt5 qt5-graphicaleffects qt5-quickcontrols
+          & "$env:VCPKG_ROOT\vcpkg" install --downloads-root="$env:VCPKG_ROOT"
 
       - name: Config Bitcoin Core
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
