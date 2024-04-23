@@ -21,15 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.1
 
-      - name: Checkout nunchuk-qt
-        working-directory: ${{runner.workspace}}
-        env:
-          GITLAB_AT: ${{ secrets.GITLAB_AT }} 
-        run: |
-          git clone -b online https://bakaoh:$env:GITLAB_AT@gitlab.com/nunchuck/nunchuck-qt nunchuk-qt --depth 1
-          cd nunchuk-qt
-          git submodule update --init --recursive
-
       - name: Setup cmake
         uses: lukka/get-cmake@v3.29.2
 
@@ -45,8 +36,35 @@ jobs:
           vcpkgDirectory: 'D:/a/vcpkg'
           vcpkgGitCommitId: '8d8cec243e033d751c82fd16be5b2ff95ab28bb1'
 
-      - name: Prints output of run-vcpkg's action.
-        run: echo "root='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}', triplet='${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_DEFAULT_TRIPLET_OUT }}' "
+      - name: Checkout libolm
+        working-directory: ${{runner.workspace}}
+        run: |
+          git clone https://gitlab.matrix.com/matrix-org/olm --depth 1
+          cd olm
+          git submodule update --init --recursive
+      
+      - name: Copy files
+        working-directory: ${{runner.workspace}}
+        shell: cmd
+        run: |
+          copy /Y ${{runner.workspace}}\windeploynunchuk\CMakePresets.json ${{runner.workspace}}\olm
+
+      - name: Build libolm
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeListsTxtPath: '${{runner.workspace}}/olm/CMakeLists.txt'
+          configurePreset: ninja-multi-vcpkg
+          buildPreset: ninja-multi-vcpkg
+          buildPresetAdditionalArgs: "['--target install']"
+
+      - name: Checkout nunchuk-qt
+        working-directory: ${{runner.workspace}}
+        env:
+          GITLAB_AT: ${{ secrets.GITLAB_AT }} 
+        run: |
+          git clone -b online https://bakaoh:$env:GITLAB_AT@gitlab.com/nunchuck/nunchuck-qt nunchuk-qt --depth 1
+          cd nunchuk-qt
+          git submodule update --init --recursive
     
       - name: Config Bitcoin Core
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
