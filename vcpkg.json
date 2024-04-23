@@ -12,6 +12,7 @@
     "zeromq",
     "qt5",
     "qt5-graphicaleffects",
-    "qt5-quickcontrols"
+    "qt5-quickcontrols",
+    "qtkeychain"
   ]
 }
