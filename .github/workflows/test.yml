@@ -39,7 +39,7 @@ jobs:
       - name: Checkout libolm
         working-directory: ${{runner.workspace}}
         run: |
-          git clone https://gitlab.matrix.com/matrix-org/olm --depth 1
+          git clone https://gitlab.matrix.org/matrix-org/olm --depth 1
           cd olm
           git submodule update --init --recursive
       
