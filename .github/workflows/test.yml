@@ -21,9 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.1
 
-      - name: Setup cmake
-        uses: lukka/get-cmake@v3.29.2
-
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v2
         with:
@@ -42,20 +39,6 @@ jobs:
           git clone https://gitlab.matrix.org/matrix-org/olm --depth 1
           cd olm
           git submodule update --init --recursive
-      
-      - name: Copy files
-        working-directory: ${{runner.workspace}}
-        shell: cmd
-        run: |
-          copy /Y ${{runner.workspace}}\windeploynunchuk\CMakePresets.json ${{runner.workspace}}\olm
-
-      - name: Build libolm
-        uses: lukka/run-cmake@v10
-        with:
-          cmakeListsTxtPath: '${{runner.workspace}}/olm/CMakeLists.txt'
-          configurePreset: ninja-multi-vcpkg
-          buildPreset: ninja-multi-vcpkg
-          buildPresetAdditionalArgs: "['--target install']"
 
       - name: Checkout nunchuk-qt
         working-directory: ${{runner.workspace}}
@@ -70,19 +53,17 @@ jobs:
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
         run: |
           & "$env:VCPKG_ROOT\vcpkg" integrate install
-          git config user.email "you@example.com"
-          git config user.name "Your Name"
-          git am ${{runner.workspace}}\windeploynunchuk\patches\0001-Unload-qt.patch
           py -3 msvc-autogen.py
 
       - name: Build Bitcoin Core
-        if: steps.cache-contrib.outputs.cache-hit != 'true'
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
         shell: cmd
         run: |
           set CL=/D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
           msbuild /m bitcoin.sln /p:Platform=x64 /p:Configuration=Release /t:build /m:8 /p:DefineConstants=_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-          del /q ${{runner.workspace}}\nunchuk-qt\contrib\libnunchuk\contrib\bitcoin\build_msvc\x64\Release
+
+      - name: Setup cmake
+        uses: lukka/get-cmake@v3.29.2
 
       - name: Copy files
         working-directory: ${{runner.workspace}}
@@ -90,6 +71,15 @@ jobs:
         run: |
           copy /Y ${{runner.workspace}}\windeploynunchuk\vcpkg.json ${{runner.workspace}}\nunchuk-qt
           copy /Y ${{runner.workspace}}\windeploynunchuk\CMakePresets.json ${{runner.workspace}}\nunchuk-qt
+          copy /Y ${{runner.workspace}}\windeploynunchuk\CMakePresets.json ${{runner.workspace}}\olm
+
+      - name: Build libolm
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeListsTxtPath: '${{runner.workspace}}/olm/CMakeLists.txt'
+          configurePreset: ninja-multi-vcpkg
+          buildPreset: ninja-multi-vcpkg
+          buildPresetAdditionalArgs: "['--target install']"
 
       - name: Build Nunchuk-qt
         uses: lukka/run-cmake@v10
