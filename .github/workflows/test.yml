@@ -43,7 +43,6 @@ jobs:
         id: runvcpkg
         with:
           vcpkgDirectory: 'D:/a/vcpkg'
-          vcpkgJsonGlob: '**/vcpkg.json'
           vcpkgGitCommitId: '8d8cec243e033d751c82fd16be5b2ff95ab28bb1'
 
       - name: Prints output of run-vcpkg's action.
