@@ -31,8 +31,13 @@ jobs:
         id: runvcpkg
         with:
           vcpkgDirectory: 'D:/a/vcpkg'
-          vcpkgGitCommitId: '8d8cec243e033d751c82fd16be5b2ff95ab28bb1'
-
+          vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
+   
+      - name: Install dependencies
+        working-directory: ${{runner.workspace}}/windeploynunchuk
+        run: |
+          & "$env:VCPKG_ROOT\vcpkg" integrate install
+          
       - name: Checkout libolm
         working-directory: ${{runner.workspace}}
         run: |
