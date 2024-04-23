@@ -66,6 +66,7 @@ jobs:
         run: |
           set CL=/D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
           msbuild /m bitcoin.sln /p:Platform=x64 /p:Configuration=Release /t:build /m:8 /p:DefineConstants=_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+          set CL=/D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 
       - name: Setup cmake
         uses: lukka/get-cmake@v3.29.2
