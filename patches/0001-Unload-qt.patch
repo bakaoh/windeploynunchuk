@@ -135,23 +135,6 @@ index 7d8591c10b..920a225643 100644
      EndGlobalSection
      GlobalSection(SolutionProperties) = preSolution
          HideSolutionNode = FALSE
-diff --git a/build_msvc/vcpkg.json b/build_msvc/vcpkg.json
-index 42b9a5d16f..85c3f433ee 100644
---- a/build_msvc/vcpkg.json
-+++ b/build_msvc/vcpkg.json
-@@ -14,6 +14,11 @@
-       "name": "libevent",
-       "features": ["thread"]
-     },
--    "zeromq"
-+    "zeromq",
-+    "boost",
-+    "sqlcipher",
-+    "qt5",
-+    "qt5-graphicaleffects",
-+    "qt5-quickcontrols"
-   ]
- }
 -- 
 2.24.2 (Apple Git-127)
 
