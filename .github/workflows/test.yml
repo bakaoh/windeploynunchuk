@@ -31,12 +31,7 @@ jobs:
         id: runvcpkg
         with:
           vcpkgDirectory: 'D:/a/vcpkg'
-          vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
-   
-      - name: Install dependencies
-        working-directory: ${{runner.workspace}}/windeploynunchuk
-        run: |
-          & "$env:VCPKG_ROOT\vcpkg" integrate install
+          vcpkgGitCommitId: '8d8cec243e033d751c82fd16be5b2ff95ab28bb1'
           
       - name: Checkout libolm
         working-directory: ${{runner.workspace}}
@@ -57,7 +52,10 @@ jobs:
       - name: Config Bitcoin Core
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
         run: |
-          & "$env:VCPKG_ROOT\vcpkg" integrate install
+          & "$env:VCPKG_ROOT\vcpkg" install
+          git config user.email "you@example.com"
+          git config user.name "Your Name"
+          git am ${{runner.workspace}}\windeploynunchuk\patches\0001-Unload-qt.patch
           py -3 msvc-autogen.py
 
       - name: Build Bitcoin Core
