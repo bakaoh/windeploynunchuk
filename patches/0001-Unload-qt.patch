@@ -1,12 +1,12 @@
-From 7d9babe7af13fe579fc35bc28ecd75e7704db10a Mon Sep 17 00:00:00 2001
+From 9c146d959935ddc6dcc742bec2e57e45d25fa86e Mon Sep 17 00:00:00 2001
 From: Bakaoh <batatsar@gmail.com>
 Date: Wed, 27 Mar 2024 16:51:07 +0700
 Subject: [PATCH] Unload qt
 
 ---
- build_msvc/bitcoin.sln | 70 ------------------------------------------
- build_msvc/vcpkg.json  |  7 +++++
- 2 files changed, 7 insertions(+), 70 deletions(-)
+ build_msvc/bitcoin.sln         | 70 ----------------------------------
+ build_msvc/common.init.vcxproj |  1 +
+ 2 files changed, 1 insertion(+), 70 deletions(-)
 
 diff --git a/build_msvc/bitcoin.sln b/build_msvc/bitcoin.sln
 index 7d8591c10b..920a225643 100644
@@ -135,23 +135,18 @@ index 7d8591c10b..920a225643 100644
      EndGlobalSection
      GlobalSection(SolutionProperties) = preSolution
          HideSolutionNode = FALSE
-diff --git a/build_msvc/vcpkg.json b/build_msvc/vcpkg.json
-index 42b9a5d16f..b5584e1712 100644
---- a/build_msvc/vcpkg.json
-+++ b/build_msvc/vcpkg.json
-@@ -15,5 +15,12 @@
-       "features": ["thread"]
-     },
-     "zeromq"
-+  ],
-+  "builtin-baseline": "4f8fb510ba03f195a49f6353b97fabf5bb20d450",
-+  "overrides": [
-+    {
-+      "name": "libevent",
-+      "version": "2.1.12"
-+    }
-   ]
- }
+diff --git a/build_msvc/common.init.vcxproj b/build_msvc/common.init.vcxproj
+index 6ea018d846..5b3e785f4b 100644
+--- a/build_msvc/common.init.vcxproj
++++ b/build_msvc/common.init.vcxproj
+@@ -14,6 +14,7 @@
+     <VcpkgUseStatic>true</VcpkgUseStatic>
+     <VcpkgAutoLink>true</VcpkgAutoLink>
+     <VcpkgConfiguration>$(Configuration)</VcpkgConfiguration>
++    <VcpkgAdditionalInstallOptions>--allow-unsupported</VcpkgAdditionalInstallOptions>
+     <VcpkgTriplet Condition="'$(Platform)'=='Win32'">x86-windows-static</VcpkgTriplet>
+     <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static</VcpkgTriplet>
+   </PropertyGroup>
 -- 
 2.24.2 (Apple Git-127)
 
