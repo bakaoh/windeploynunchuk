@@ -1,13 +1,13 @@
-From 977fcfcdec75d96adf0e80a7dafd672137d79743 Mon Sep 17 00:00:00 2001
+From 4247b33cce4dbbbca5871c94ded8b1aa6a145208 Mon Sep 17 00:00:00 2001
 From: Bakaoh <batatsar@gmail.com>
 Date: Wed, 27 Mar 2024 16:51:07 +0700
 Subject: [PATCH] Unload qt
 
 ---
  build_msvc/bitcoin.sln         | 70 ----------------------------------
- build_msvc/common.init.vcxproj |  1 +
+ build_msvc/common.init.vcxproj |  3 +-
  src/httpserver.cpp             |  2 +-
- 3 files changed, 2 insertions(+), 71 deletions(-)
+ 3 files changed, 3 insertions(+), 72 deletions(-)
 
 diff --git a/build_msvc/bitcoin.sln b/build_msvc/bitcoin.sln
 index 7d8591c10b..920a225643 100644
@@ -137,7 +137,7 @@ index 7d8591c10b..920a225643 100644
      GlobalSection(SolutionProperties) = preSolution
          HideSolutionNode = FALSE
 diff --git a/build_msvc/common.init.vcxproj b/build_msvc/common.init.vcxproj
-index 6ea018d846..5b3e785f4b 100644
+index 6ea018d846..032ffe96b8 100644
 --- a/build_msvc/common.init.vcxproj
 +++ b/build_msvc/common.init.vcxproj
 @@ -14,6 +14,7 @@
@@ -148,6 +148,15 @@ index 6ea018d846..5b3e785f4b 100644
      <VcpkgTriplet Condition="'$(Platform)'=='Win32'">x86-windows-static</VcpkgTriplet>
      <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static</VcpkgTriplet>
    </PropertyGroup>
+@@ -104,7 +105,7 @@
+     </ClCompile>
+     <Link>
+       <SubSystem>Console</SubSystem>
+-      <AdditionalDependencies>Iphlpapi.lib;ws2_32.lib;Shlwapi.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
++      <AdditionalDependencies>bcrypt.lib;Iphlpapi.lib;ws2_32.lib;Shlwapi.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+       <RandomizedBaseAddress>true</RandomizedBaseAddress>
+     </Link>
+     <Lib>
 diff --git a/src/httpserver.cpp b/src/httpserver.cpp
 index 8741ad9b86..4dc2142126 100644
 --- a/src/httpserver.cpp
