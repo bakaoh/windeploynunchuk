@@ -32,7 +32,7 @@ jobs:
         id: runvcpkg
         with:
           vcpkgDirectory: 'D:/a/vcpkg'
-          vcpkgGitCommitId: 'f14984af3738e69f197bf0e647a8dca12de92996'
+          vcpkgGitCommitId: '539a182d3773b9a84807b978c9684ba471446bf4'
           
       - name: Checkout libolm
         working-directory: ${{runner.workspace}}
@@ -86,6 +86,11 @@ jobs:
           buildPreset: ninja-multi-vcpkg
           buildPresetAdditionalArgs: "['--target install']"
 
+      - name: Config Nunchuk-qt
+        working-directory: ${{runner.workspace}}/nunchuk-qt
+        run: |
+          & "$env:VCPKG_ROOT\vcpkg" integrate install
+          
       - name: Build Nunchuk-qt
         uses: lukka/run-cmake@v10
         with:
