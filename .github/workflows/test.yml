@@ -53,10 +53,10 @@ jobs:
       - name: Config Bitcoin Core
         working-directory: ${{runner.workspace}}/nunchuk-qt/contrib/libnunchuk/contrib/bitcoin/build_msvc
         run: |
-          & "$env:VCPKG_ROOT\vcpkg" integrate install
           git config user.email "you@example.com"
           git config user.name "Your Name"
           git am ${{runner.workspace}}\windeploynunchuk\patches\0001-Unload-qt.patch
+          & "$env:VCPKG_ROOT\vcpkg" integrate install
           py -3 msvc-autogen.py
 
       - name: Build Bitcoin Core
