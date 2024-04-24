@@ -32,7 +32,7 @@ jobs:
         id: runvcpkg
         with:
           vcpkgDirectory: 'D:/a/vcpkg'
-          vcpkgGitCommitId: '8d8cec243e033d751c82fd16be5b2ff95ab28bb1'
+          vcpkgGitCommitId: 'f14984af3738e69f197bf0e647a8dca12de92996'
           
       - name: Checkout libolm
         working-directory: ${{runner.workspace}}
