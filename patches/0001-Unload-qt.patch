@@ -1,12 +1,12 @@
-From c4fcaa225e7b0ee18d9073381607878f5f93e9b1 Mon Sep 17 00:00:00 2001
+From 8cacb7f714793947f69c97b7ffbdfa131eeee1b7 Mon Sep 17 00:00:00 2001
 From: Bakaoh <batatsar@gmail.com>
 Date: Wed, 27 Mar 2024 16:51:07 +0700
-Subject: Upload qt
+Subject: [PATCH] Upload qt
 
 ---
  build_msvc/bitcoin.sln | 70 ------------------------------------------
- build_msvc/vcpkg.json  |  7 ++++-
- 2 files changed, 6 insertions(+), 71 deletions(-)
+ build_msvc/vcpkg.json  |  7 +++++
+ 2 files changed, 7 insertions(+), 70 deletions(-)
 
 diff --git a/build_msvc/bitcoin.sln b/build_msvc/bitcoin.sln
 index 7d8591c10b..920a225643 100644
@@ -135,6 +135,23 @@ index 7d8591c10b..920a225643 100644
      EndGlobalSection
      GlobalSection(SolutionProperties) = preSolution
          HideSolutionNode = FALSE
+diff --git a/build_msvc/vcpkg.json b/build_msvc/vcpkg.json
+index 42b9a5d16f..107a5b9e8e 100644
+--- a/build_msvc/vcpkg.json
++++ b/build_msvc/vcpkg.json
+@@ -15,5 +15,12 @@
+       "features": ["thread"]
+     },
+     "zeromq"
++  ],
++  "builtin-baseline": "539a182d3773b9a84807b978c9684ba471446bf4",
++  "overrides": [
++    {
++      "name": "libevent",
++      "version": "2.1.12"
++    }
+   ]
+ }
 -- 
 2.24.2 (Apple Git-127)
 
