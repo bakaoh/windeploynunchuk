@@ -4,6 +4,7 @@
   "dependencies": [
     "sqlcipher",
     "libevent",
+    "boost",
     "boost-filesystem",
     "boost-algorithm",
     "boost-process",
