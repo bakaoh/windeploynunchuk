@@ -8,6 +8,7 @@
     "boost-algorithm",
     "boost-process",
     "boost-signals2",
+    "boost-multi-index",
     "berkeleydb",
     "zeromq",
     "qt5",
