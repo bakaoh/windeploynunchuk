@@ -84,7 +84,7 @@ jobs:
           cmakeListsTxtPath: '${{runner.workspace}}/olm/CMakeLists.txt'
           configurePreset: ninja-multi-vcpkg
           buildPreset: ninja-multi-vcpkg
-          buildPresetAdditionalArgs: "['--target install']"
+          buildPresetAdditionalArgs: "['--target install', '--config Release']"
 
       - name: Config Nunchuk-qt
         working-directory: ${{runner.workspace}}/nunchuk-qt
@@ -97,4 +97,5 @@ jobs:
           cmakeListsTxtPath: '${{runner.workspace}}/nunchuk-qt/CMakeLists.txt'
           configurePreset: ninja-multi-vcpkg
           buildPreset: ninja-multi-vcpkg
-    
+          buildPresetAdditionalArgs: "['--config Release']"
+
