@@ -1,0 +1,25 @@
+From a04cdc7ac2a7232652ac0f7ec96123254e07c44d Mon Sep 17 00:00:00 2001
+From: Bakaoh <batatsar@gmail.com>
+Date: Thu, 25 Apr 2024 10:59:39 +0700
+Subject: [PATCH] Add namespace
+
+---
+ src/strencoding.hpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/strencoding.hpp b/src/strencoding.hpp
+index aa27a67..c86ebb0 100644
+--- a/src/strencoding.hpp
++++ b/src/strencoding.hpp
+@@ -11,7 +11,7 @@
+ #include <string>
+ #include <vector>
+ 
+-namespace {
++namespace bbqr {
+ /** Helper class for the default infn argument to ConvertBits (just returns the input). */
+ struct IntIdentity {
+   [[maybe_unused]] int operator()(int x) const { return x; }
+-- 
+2.24.2 (Apple Git-127)
+
